@@ -5,19 +5,18 @@ on:
     inputs:
        dev:
           required: true
-          description: $DESCRIPTION
+          description: select
           default: test2
 env:
- DESCRIPTION: select dev (test1, test2, test3)
+ ARRAY_VALUES: ("element1" "element2" "element3")
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
-
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo $ARRAY_VALUES
