@@ -5,7 +5,7 @@ on:
     inputs:
        dev:
           required: true
-          description: ${{ env.BUILD_VERSION }}
+          description: ${{ env.DESCRIPTION }}
           default: test2
 env:
  DESCRIPTION: select dev (test1, test2, test3)
