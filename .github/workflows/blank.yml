@@ -7,11 +7,11 @@ on:
           required: true
           description: select
           default: test2
-   
+env:
+  AVAILABLE_DEVS: '["test1", "test2"]'   
+
 jobs:
   build:
-    env:
-      AVAILABLE_DEVS: '["test1", "test2"]'
     runs-on: ubuntu-latest
     steps:
       - name: "Check dev"
