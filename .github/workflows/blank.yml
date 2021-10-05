@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Check dev"
-        if: ${{ contains(fromJson(env.AVAILABLE_DEVS), github.event.inputs.dev) }}
-        run: echo "Success"
+        if: ${{ !contains(fromJson(env.AVAILABLE_DEVS), github.event.inputs.dev) }}
+        run: exit 1
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
