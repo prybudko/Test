@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Check dev"
-        if: "!contains(fromJson(env.AVAILABLE_DEVS), ${{ github.event.inputs.dev }})"
+        if: !contains(fromJson(env.AVAILABLE_DEVS), ${{ github.event.inputs.dev }})
         run: |
           echo "Invalid name"
           exit 1
