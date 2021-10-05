@@ -13,7 +13,7 @@ env:
    
 jobs:
   build:
-    if: ${{ contains(fromJson(AVAILABLE_DEVS), github.event.inputs.dev) }}
+    if: ${{ contains(fromJson(env.AVAILABLE_DEVS), github.event.inputs.dev) }}
     runs-on: ubuntu-latest
     steps:
       # Runs a single command using the runners shell
