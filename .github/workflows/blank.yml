@@ -8,7 +8,7 @@ on:
           description: select
           default: test2
 env:
- ARRAY_VALUES: ("element1" "element2" "element3")
+ ARRAY_VALUES: '{"first", "second"}'
 
 jobs:
   build:
@@ -18,5 +18,7 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo $ARRAY_VALUES
+      - name: Run check
+        if: ${{ contains(fromJSON(env.ARRAY_VALUES), github.event.inputs.dev) }}
+      - name: Run success
+        run: echo Hello, world!
