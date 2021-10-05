@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    if: ${{ contains(["test1", "test2"], github.event.inputs.dev) }}
+    if: ${{ contains("test1, test2", github.event.inputs.dev) }}
     runs-on: ubuntu-latest
     steps:
       # Runs a single command using the runners shell
