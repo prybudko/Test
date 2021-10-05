@@ -8,9 +8,12 @@ on:
           description: select
           default: test2
 
+env:
+   AVAILABLE_DEVS: '["test1", "test2"]'
+   
 jobs:
   build:
-    if: ${{ contains(fromJson('["test1", "test2"]'), github.event.inputs.dev) }}
+    if: ${{ contains(fromJson($AVAILABLE_DEVS), github.event.inputs.dev) }}
     runs-on: ubuntu-latest
     steps:
       # Runs a single command using the runners shell
