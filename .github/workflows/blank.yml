@@ -7,8 +7,6 @@ on:
           required: true
           description: select
           default: test2
-env:
- ARRAY_VALUES: '{"first", "second"}'
 
 jobs:
   build:
@@ -19,6 +17,6 @@ jobs:
         run: echo Hello, world!
       # Runs a single command using the runners shell
       - name: Run check
-        if: ${{ contains(fromJSON(env.ARRAY_VALUES), github.event.inputs.dev) }}
+        if: ${{ contains(['test1', 'test2'], github.event.inputs.dev) }}
       - name: Run success
         run: echo Hello, world!
