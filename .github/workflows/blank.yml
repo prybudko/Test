@@ -10,13 +10,12 @@ on:
 
 jobs:
   build:
+    if: ${{ contains(['test1', 'test2'], github.event.inputs.dev) }}
     runs-on: ubuntu-latest
     steps:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
       # Runs a single command using the runners shell
-      - name: Run check
-        if: ${{ contains(['test1', 'test2'], github.event.inputs.dev) }}
       - name: Run success
         run: echo Hello, world!
