@@ -1,6 +1,6 @@
 {
   "name": "file-regex-replace",
-  "version": "b8c23319ba2b3dcca9608eb5f62a9cde87f4c7b4",
+  tag: b8c23319ba2b3dcca9608eb5f62a9cde87f4c7b4,
   "description": "",
   "main": "index.js",
   "scripts": {
