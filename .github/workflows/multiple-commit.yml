@@ -18,7 +18,7 @@ jobs:
         uses: mingjun97/file-regex-replace@v1
         with:
           regex: '(rep:)\s([0-9a-z]{40})'
-          replacement: '$1 ${{ steps.vars.outputs.sha_short }}'
+          replacement: '$1 ${{ github.sha }}'
           flags: "g"
           include: 'index.txt'
           exclude: '.^'
