@@ -17,7 +17,7 @@ jobs:
       - name: Find and replace version tag
         uses: mingjun97/file-regex-replace@v1
         with:
-          regex: '(model:)\s([0-9a-z]{40})'
+          regex: '"version": "([0-9\.]*)",'
           replacement: '$1 ${{ github.sha }}'
           flags: "g"
           include: 'models/mod1.txt'
