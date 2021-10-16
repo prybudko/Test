@@ -17,7 +17,7 @@ jobs:
       - name: Find and replace version tag
         uses: mingjun97/file-regex-replace@v1
         with:
-          regex: '"version": "([0-9a-z\.]*)",'
+          regex: '"version": "([0-9a-z]{40})",'
           replacement: '"version": "${{ github.sha }}",'
           flags: "g"                  # Optional, defaults to "g"
           include: 'index.txt'    # Optional, defaults to ".*"
