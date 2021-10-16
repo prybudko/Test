@@ -17,10 +17,10 @@ jobs:
       - name: Find and replace version tag
         uses: mingjun97/file-regex-replace@v1
         with:
-          regex: '(rep:)\s([0-9a-z]{40})'
+          regex: '(model:)\s([0-9a-z]{40})'
           replacement: '$1 ${{ github.sha }}'
           flags: "g"
-          include: 'index.txt'
+          include: 'models/mod1.txt'
           exclude: '.^'
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
