@@ -1,0 +1,32 @@
+name: Test multi deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Change version
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.APP_GITHUB_TOKEN }}
+          ref: master
+      - name: Find and replace version tag
+        uses: mingjun97/file-regex-replace@v1
+        with:
+          regex: '(rep:)\s([0-9a-z]{40})'
+          replacement: '$1 ${{ github.event.inputs.tag_sha }}'
+          flags: "g"
+          include: 'index.txt'
+          exclude: '.^'
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: test
+          commit_message: new version
+          commit_user_name: roman prybudko
+          commit_user_email: romanprybudko@gmail.com
+          commit_author: roman prybudko <romanprybudko@gmail.com>
+          commit_options: "--no-verify --signoff"
