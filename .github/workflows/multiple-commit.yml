@@ -17,6 +17,7 @@ jobs:
         with:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
           ref: ${{ matrix.branch }}
+          fetch-depth: 0
 #      - uses: everlytic/branch-merge@1.1.2
 #        with:
 #          target_branch: ${{ matrix.branch }}
@@ -32,11 +33,6 @@ jobs:
 #        shell: bash
 #        run: |
 #             git merge --strategy-option theirs origin/master
-      - name: "Push changes from ${{ matrix.branch }} to origin"
-        shell: bash
-        run: |
-          git config --global user.name 'romanprybudko@gmail.com'
-          git config --global user.email 'romanprybudko@gmail.com'
-          git config --global user.token ${{ secrets.APP_GITHUB_TOKEN }}
-          git merge --strategy-option theirs origin/master
-          git push origin HEAD
+      - uses: pr-mpt/actions-merge-branch@v0
+        with:
+          from: "origin/master"
