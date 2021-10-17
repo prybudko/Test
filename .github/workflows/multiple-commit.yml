@@ -37,6 +37,6 @@ jobs:
         run: |
           git config --global user.name 'romanprybudko@gmail.com'
           git config --global user.email 'romanprybudko@gmail.com'
-          git config --global user.password ${{ secrets.APP_GITHUB_TOKEN }}
-          git merge --strategy-option theirs master
-          git push
+          git config --global user.token ${{ secrets.APP_GITHUB_TOKEN }}
+          git merge --strategy-option theirs origin/master
+          git push origin HEAD
