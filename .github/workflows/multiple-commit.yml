@@ -23,16 +23,8 @@ jobs:
 #          github_token: ${{ secrets.APP_GITHUB_TOKEN }}
 #          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
 #         git merge --strategy-option theirs master
-      - name: Set commit author information
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.password ${{ secrets.APP_GITHUB_TOKEN }}
-      - name: Merge ${{ inputs.from }} with ${{ inputs.strategy }} strategy
-        shell: bash
-        run: |
-             git merge --strategy-option theirs origin/master
-      - name: "Push changes from ${{ matrix.branch }} to origin"
-        shell: bash
-        run: |
-          git push origin HEAD
+      - uses: everlytic/branch-merge@1.1.2
+        with:
+          github_token: ${{ secrets.APP_GITHUB_TOKEN }}
+          target_branch: --strategy-option theirs ${{ matrix.branch }}
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
