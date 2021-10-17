@@ -13,7 +13,7 @@ jobs:
   deploy:
     strategy:
       matrix:
-        branch: {{ fromJson(env.BRANCHES) }}
+        branch: ${{ fromJson(env.BRANCHES) }}
     runs-on: ubuntu-latest
     name: Change version
     steps:
