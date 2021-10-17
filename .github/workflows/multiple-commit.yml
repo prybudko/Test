@@ -7,28 +7,18 @@ on:
 
 jobs:
   deploy:
+    strategy:
+      matrix:
+        branch: [ 'test2', 'test' ]
     runs-on: ubuntu-latest
     name: Change version
     steps:
       - uses: actions/checkout@v2
         with:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
-          ref: test
-      - name: Find and replace version tag
-        uses: mingjun97/file-regex-replace@v1
+          ref: master
+      - uses: everlytic/branch-merge@1.1.2
         with:
-          regex: '(tag:)\s([0-9a-z]{40})'
-          replacement: '$1 ${{ github.sha }}'
-          flags: "g"                  # Optional, defaults to "g"
-          include: 'index.txt'    # Optional, defaults to ".*"
-          exclude: '.^'               # Optional, defaults to '.^'
-          encoding: 'utf8'            # Optional, defaults to 'utf8'
-          path: '.'                   # Optional, defaults to '.'
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          branch: test
-          commit_message: new version
-          commit_user_name: roman prybudko
-          commit_user_email: romanprybudko@gmail.com
-          commit_author: roman prybudko <romanprybudko@gmail.com>
-          commit_options: "--no-verify --signoff"
+          target_branch: ${{ matrix.branch }}
+          github_token: ${{ secrets.APP_GITHUB_TOKEN }}
+          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
