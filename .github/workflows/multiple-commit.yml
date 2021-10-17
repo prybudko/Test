@@ -33,6 +33,6 @@ jobs:
 #        shell: bash
 #        run: |
 #             git merge --strategy-option theirs origin/master
-      - uses: pr-mpt/actions-merge-branch@v0
+      - uses: pr-mpt/actions-merge-branch@v1
         with:
           from: "origin/master"
