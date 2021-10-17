@@ -1,15 +1,19 @@
-name: Test multi deploy
+name: Multi branch commit
 
 on:
   push:
     branches:
       - master
 
+env:
+#  BRANCHES: '["dev-sirius", "dev-vega", "dev-polaris", "dev-antares"]'
+  BRANCHES: '["test", "test2", "test-branch"]'
+
 jobs:
   deploy:
     strategy:
       matrix:
-        branch: [ 'test2', 'test' ]
+        branch: {{ fromJson(env.BRANCHES) }}
     runs-on: ubuntu-latest
     name: Change version
     steps:
