@@ -9,7 +9,7 @@ jobs:
   deploy:
     strategy:
       matrix:
-        branch: ["test", "test2", "test-branch"]
+        branch: ["test", "test2"]
     runs-on: ubuntu-latest
     name: Change version
     steps:
