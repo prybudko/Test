@@ -1,4 +1,4 @@
-name: Test multi deploy
+name: Multi branch commit
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
   deploy:
     strategy:
       matrix:
-        branch: [ 'test2', 'test' ]
+        branch: ["test", "test2", "test-branch"]
     runs-on: ubuntu-latest
     name: Change version
     steps:
@@ -17,6 +17,7 @@ jobs:
         with:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
           ref: ${{ matrix.branch }}
-      - uses: peter-evans/rebase@v1
+          fetch-depth: 0
+      - uses: pr-mpt/actions-merge-branch@v1
         with:
-          token: ${{ secrets.APP_GITHUB_TOKEN }}
+          from: "origin/master"
