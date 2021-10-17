@@ -27,7 +27,7 @@ jobs:
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.password ${{ secrets.APP_GITHUB_TOKEN }}
       - name: Merge ${{ inputs.from }} with ${{ inputs.strategy }} strategy
         shell: bash
         run: |
