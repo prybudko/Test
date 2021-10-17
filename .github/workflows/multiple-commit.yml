@@ -17,8 +17,15 @@ jobs:
         with:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
           ref: master
-      - uses: everlytic/branch-merge@1.1.2
+#      - uses: everlytic/branch-merge@1.1.2
+#        with:
+#          target_branch: ${{ matrix.branch }}
+#          github_token: ${{ secrets.APP_GITHUB_TOKEN }}
+#          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
+      - uses: robotology/gh-action-nightly-merge@v1.3.1
         with:
-          target_branch: ${{ matrix.branch }}
-          github_token: ${{ secrets.APP_GITHUB_TOKEN }}
-          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
+          stable_branch: master
+          development_branch: ${{ matrix.branch }}
+          allow_ff: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.APP_GITHUB_TOKEN }}
