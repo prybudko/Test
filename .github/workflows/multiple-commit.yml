@@ -27,5 +27,6 @@ jobs:
           stable_branch: master
           development_branch: ${{ matrix.branch }}
           allow_ff: true
+          allow_forks: true
         env:
           GITHUB_TOKEN: ${{ secrets.APP_GITHUB_TOKEN }}
