@@ -31,7 +31,7 @@ jobs:
       - name: Merge ${{ inputs.from }} with ${{ inputs.strategy }} strategy
         shell: bash
         run: |
-             MERGE="git merge --strategy-option theirs master
+             MERGE="git merge --strategy-option theirs master"
              eval $MERGE --commit
       - name: "Push changes from ${{ inputs.from }} to origin"
         shell: bash
