@@ -38,6 +38,5 @@ jobs:
           git config --global user.name 'romanprybudko@gmail.com'
           git config --global user.email 'romanprybudko@gmail.com'
           git config --global user.password ${{ secrets.APP_GITHUB_TOKEN }}
-#          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git merge --strategy-option theirs master
           git push
