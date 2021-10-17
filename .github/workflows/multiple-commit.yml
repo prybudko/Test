@@ -17,6 +17,7 @@ jobs:
         with:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
           ref: ${{ matrix.branch }}
+          fetch-depth: 0
       - uses: pr-mpt/actions-merge-branch@v1
         with:
           from: "origin/master"
