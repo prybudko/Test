@@ -23,7 +23,17 @@ jobs:
 #          github_token: ${{ secrets.APP_GITHUB_TOKEN }}
 #          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
 #         git merge --strategy-option theirs master
-      - uses: pr-mpt/actions-merge-branch@v2.1.0
-        with:
-          from: master
-          strategy: recursive --strategy-option theirs
+      - name: Set commit author information
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Merge ${{ inputs.from }} with ${{ inputs.strategy }} strategy
+        shell: bash
+        run: |
+             MERGE="git merge --strategy-option theirs master
+             eval $MERGE --commit
+      - name: "Push changes from ${{ inputs.from }} to origin"
+        shell: bash
+        run: |
+          git push origin HEAD
