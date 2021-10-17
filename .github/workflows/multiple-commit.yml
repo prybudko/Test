@@ -31,9 +31,8 @@ jobs:
       - name: Merge ${{ inputs.from }} with ${{ inputs.strategy }} strategy
         shell: bash
         run: |
-          git checkout ${{ matrix.branch }}
-             git merge --strategy-option theirs master
-      - name: "Push changes from ${{ inputs.from }} to origin"
+             git merge --strategy-option theirs origin/master
+      - name: "Push changes from ${{ matrix.branch }} to origin"
         shell: bash
         run: |
           git push origin HEAD
