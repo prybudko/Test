@@ -21,3 +21,14 @@ jobs:
       - uses: pr-mpt/actions-merge-branch@v1
         with:
           from: "origin/master"
+      - name: Find and replace version tag
+        uses: mingjun97/file-regex-replace@v1
+        with:
+          regex: '(master)'
+          replacement: '$1 ${{ matrix.branch }}'
+          flags: "g"
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: ${{ matrix.branch }}
+          commit_message: bump version
+          commit_options: "--no-verify --signoff"

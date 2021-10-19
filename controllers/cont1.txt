@@ -1,1 +1,2 @@
 cont master2
+cost master
