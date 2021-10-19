@@ -1,2 +1,2 @@
-cont master2
-cost master
+cont master test2
+cost master test
