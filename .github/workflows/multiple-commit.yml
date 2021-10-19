@@ -21,11 +21,12 @@ jobs:
       - uses: pr-mpt/actions-merge-branch@v1
         with:
           from: "origin/master"
+          push: false
       - name: Find and replace version tag
         uses: mingjun97/file-regex-replace@v1
         with:
           regex: '(master)'
-          replacement: '$1 ${{ matrix.branch }}'
+          replacement: '${{ matrix.branch }}'
           flags: "g"
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
