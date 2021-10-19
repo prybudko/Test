@@ -3,7 +3,7 @@ name: Multi branch commit
 on:
   push:
     branches:
-      - master test
+      - test test
 
 jobs:
   deploy:
@@ -20,12 +20,12 @@ jobs:
           fetch-depth: 0
       - uses: pr-mpt/actions-merge-branch@v1
         with:
-          from: "origin/master"
+          from: "origin/test"
           push: false
       - name: Find and replace version tag
         uses: mingjun97/file-regex-replace@v1
         with:
-          regex: '(master)'
+          regex: '(test)'
           replacement: '${{ matrix.branch }}'
           flags: "g"
       - uses: stefanzweifel/git-auto-commit-action@v4
