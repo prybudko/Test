@@ -30,7 +30,8 @@ jobs:
           if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} --strategy-option theirs --rerere-autoupdate
           then
               echo "Auto Merge failed."
-              git status
+              git add .
+              git commit -m"Auto merge failed fix"
               echo "Merge successful using merge tool"
           else
               echo "Auto Merge successful."
