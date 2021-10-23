@@ -3,7 +3,7 @@ name: Multi branch commit
 on:
   push:
     branches:
-      - master
+      - master2
 
 jobs:
   deploy:
@@ -23,10 +23,10 @@ jobs:
 #          from: "origin/master"
 #          push: false
 #          commit: false
-      - name: Cherry pick into origin/master
-        uses: carloscastrojumo/github-cherry-pick-action@v1.0.1
-        with:
-          branch: master
+      - name: Cherry pick
+        shell: bash
+        run: |
+            git cherry-pick
       - name: Find and replace version tag
         uses: mingjun97/file-regex-replace@v1
         with:
