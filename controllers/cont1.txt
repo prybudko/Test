@@ -1,2 +1,3 @@
 cont master2
 cost master
+tag=mast
