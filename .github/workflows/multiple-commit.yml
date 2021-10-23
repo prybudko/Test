@@ -26,12 +26,13 @@ jobs:
       - name: Cherry pick
         shell: bash
         run: |
+          conflict_resolution='m'
           if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} --strategy-option theirs
           then
               echo "Auto Merge failed. Attempting to use merge tool."
               yes $conflict_resolution | git mergetool --tool=vimdiff3
               git clean -f *.orig
-              git commit -m "From Jenkins Job: ${JOB_NAME}  Build: ${BUILD_NUMBER}"
+              git commit -m "From Jenkins Job: name  Build: 1"
               echo "Merge successful using merge tool"
           else
               echo "Auto Merge successful."
