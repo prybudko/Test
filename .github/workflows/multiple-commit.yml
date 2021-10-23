@@ -26,7 +26,7 @@ jobs:
       - name: Cherry pick into origin/master
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.1
         with:
-          branch: origin/master
+          branch: master
       - name: Find and replace version tag
         uses: mingjun97/file-regex-replace@v1
         with:
