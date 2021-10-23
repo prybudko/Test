@@ -18,11 +18,15 @@ jobs:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
           ref: ${{ matrix.branch }}
           fetch-depth: 0
-      - uses: pr-mpt/actions-merge-branch@v2
+#      - uses: pr-mpt/actions-merge-branch@v2
+#        with:
+#          from: "origin/master"
+#          push: false
+#          commit: false
+      - name: Cherry pick into origin/master
+        uses: carloscastrojumo/github-cherry-pick-action@v1.0.1
         with:
-          from: "origin/master"
-          push: false
-          commit: false
+          branch: origin/master
       - name: Find and replace version tag
         uses: mingjun97/file-regex-replace@v1
         with:
