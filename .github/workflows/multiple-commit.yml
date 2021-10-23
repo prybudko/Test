@@ -31,7 +31,7 @@ jobs:
       - name: Cherry pick
         shell: bash
         run: |
-            git cherry-pick ${{ github.event.before }}^ ${{ github.event.after }}
+            git cherry-pick ${{ github.event.before }} .. ${{ github.event.after }}
       - name: Find and replace version branch
         uses: mingjun97/file-regex-replace@v1
         with:
