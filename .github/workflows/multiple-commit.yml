@@ -31,7 +31,7 @@ jobs:
       - name: Cherry pick
         shell: bash
         run: |
-            git cherry-pick 3a80cd15 .. dff44cde
+            git cherry-pick d52cf2f6 .. 5599c831
       - name: Find and replace version tag
         uses: mingjun97/file-regex-replace@v1
         with:
