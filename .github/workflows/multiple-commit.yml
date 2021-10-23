@@ -1,0 +1,41 @@
+name: Multi branch commit
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    strategy:
+      matrix:
+        branch: ["test", "test2"]
+    runs-on: ubuntu-latest
+    name: Change version
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.APP_GITHUB_TOKEN }}
+          ref: ${{ matrix.branch }}
+          fetch-depth: 0
+      #      - uses: pr-mpt/actions-merge-branch@v2
+      #        with:
+      #          from: "origin/master"
+      #          push: false
+      #          commit: false
+      - name: Cherry pick
+        shell: bash
+        run: |
+          git cherry-pick e2ab52e1 .. da8e09ef
+      - name: Find and replace version tag
+        uses: mingjun97/file-regex-replace@v1
+        with:
+          regex: '(master)'
+          replacement: '${{ matrix.branch }}'
+          flags: "g"
+          exclude: '(tag=)\s([a-z]{4})'
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          branch: ${{ matrix.branch }}
+          commit_message: bump version
+          commit_options: "--no-verify --signoff"
