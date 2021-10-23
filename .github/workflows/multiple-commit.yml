@@ -3,7 +3,7 @@ name: Multi branch commit
 on:
   push:
     branches:
-      - master
+      - master3
 
 jobs:
   deploy:
@@ -26,7 +26,7 @@ jobs:
       - name: Cherry pick
         shell: bash
         run: |
-            git cherry-pick ${{ github.event.before }}..${{ github.event.after }}
+            git cherry-pick ${{ github.event.before }}..${{ github.event.after }} --strategy-option theirs
 #      - name: Find and replace version branch
 #        uses: mingjun97/file-regex-replace@v1
 #        with:
