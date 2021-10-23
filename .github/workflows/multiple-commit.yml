@@ -29,7 +29,7 @@ jobs:
           regex: '(master)'
           replacement: '${{ matrix.branch }}'
           flags: "g"
-          exclude: '(tag=)\s([0-9a-z]{4})'
+          exclude: '(tag=)\s([a-z]{4})'
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: ${{ matrix.branch }}
