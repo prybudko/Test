@@ -27,12 +27,10 @@ jobs:
         shell: bash
         run: |
           conflict_resolution='m'
-          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} --strategy-option theirs
+          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} --strategy-option theirs --rerere-autoupdate
           then
-              echo "Auto Merge failed. Attempting to use merge tool."
-              yes $conflict_resolution | git mergetool --tool=vimdiff3
-              git clean -f *.orig
-              git commit -m "From Jenkins Job: name  Build: 1"
+              echo "Auto Merge failed."
+              git status
               echo "Merge successful using merge tool"
           else
               echo "Auto Merge successful."
