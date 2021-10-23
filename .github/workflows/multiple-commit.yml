@@ -28,15 +28,11 @@ jobs:
         run: |
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
       - name: Cherry pick
         shell: bash
         run: |
-            git cherry-pick 5599c831
-      - name: Find and replace version tag
+            git cherry-pick ${{ github.event.before }} ${{ github.event.after }}
+      - name: Find and replace version branch
         uses: mingjun97/file-regex-replace@v1
         with:
           regex: '(master)'
