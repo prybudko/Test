@@ -47,6 +47,6 @@ jobs:
       - name: Commit and push
         shell: bash
         run: |
-            git add .
-            git commit -m"bump"
+#            git add .
+#            git commit -m"bump"
             git push
