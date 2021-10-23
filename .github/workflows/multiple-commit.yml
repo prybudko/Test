@@ -3,7 +3,7 @@ name: Multi branch commit
 on:
   push:
     branches:
-      - master2
+      - master
 
 jobs:
   deploy:
@@ -26,7 +26,7 @@ jobs:
       - name: Cherry pick
         shell: bash
         run: |
-            git cherry-pick
+            git cherry-pick e2ab52e1 .. da8e09ef
       - name: Find and replace version tag
         uses: mingjun97/file-regex-replace@v1
         with:
