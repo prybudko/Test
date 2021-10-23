@@ -1,3 +1,3 @@
 cont test2
 cost test
-tag=mast
+tag=test
