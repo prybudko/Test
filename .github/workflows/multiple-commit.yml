@@ -18,33 +18,33 @@ jobs:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
           ref: ${{ matrix.branch }}
           fetch-depth: 0
-#      - uses: pr-mpt/actions-merge-branch@v2
-#        with:
-#          from: "origin/master"
-#          push: false
-#          commit: false
-      - name: Set commit author information
-        shell: bash
-        run: |
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - name: Cherry pick
-        shell: bash
-        run: |
-            git cherry-pick ${{ github.event.before }}..${{ github.event.after }}
-      - name: Find and replace version branch
-        uses: mingjun97/file-regex-replace@v1
+      - uses: pr-mpt/actions-merge-branch@v2
         with:
-          regex: '(master)'
-          replacement: '${{ matrix.branch }}'
-          flags: "g"
-          exclude: '(tag=)\s([a-z]{4})'
-#      - uses: stefanzweifel/git-auto-commit-action@v4
+          from: "origin/master"
+          push: false
+          strategy: recursive
+#      - name: Set commit author information
+#        shell: bash
+#        run: |
+#            git config user.name "github-actions[bot]"
+#            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+#      - name: Cherry pick
+#        shell: bash
+#        run: |
+#            git cherry-pick ${{ github.event.before }}..${{ github.event.after }}
+#      - name: Find and replace version branch
+#        uses: mingjun97/file-regex-replace@v1
 #        with:
-#          branch: ${{ matrix.branch }}
-#          commit_message: bump version
-#          commit_options: "--no-verify --signoff"
-      - name: Commit and push
-        shell: bash
-        run: |
-            git push
+#          regex: '(master)'
+#          replacement: '${{ matrix.branch }}'
+#          flags: "g"
+#          exclude: '(tag=)\s([a-z]{4})'
+        - uses: stefanzweifel/git-auto-commit-action@v4
+          with:
+            branch: ${{ matrix.branch }}
+            commit_message: bump version
+            commit_options: "--no-verify --signoff"
+#      - name: Commit and push
+#        shell: bash
+#        run: |
+#            git push
