@@ -3,7 +3,7 @@ name: Multi branch commit
 on:
   push:
     branches:
-      - master
+      - test3
 
 jobs:
   deploy:
@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 #      - uses: pr-mpt/actions-merge-branch@v2
 #        with:
-#          from: "origin/master"
+#          from: "origin/test3"
 #          push: false
 #          commit: false
       - name: Cherry pick
@@ -30,7 +30,7 @@ jobs:
       - name: Find and replace version tag
         uses: mingjun97/file-regex-replace@v1
         with:
-          regex: '(master)'
+          regex: '(test3)'
           replacement: '${{ matrix.branch }}'
           flags: "g"
           exclude: '(tag=)\s([a-z]{4})'
