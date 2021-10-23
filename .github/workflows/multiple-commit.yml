@@ -3,7 +3,7 @@ name: Multi branch commit
 on:
   push:
     branches:
-      - master3
+      - master
 
 jobs:
   deploy:
