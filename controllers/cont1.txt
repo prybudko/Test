@@ -1,3 +1,3 @@
-cont test test2
-cost test test
-tag=test
+cont master2
+cost master
+tag=mast
