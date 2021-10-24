@@ -1,2 +1,2 @@
-version:1234
+version:base-replaceable
 5
