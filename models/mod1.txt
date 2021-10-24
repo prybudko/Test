@@ -1,2 +1,2 @@
-version:base-replaceable
+version:test3
 5
