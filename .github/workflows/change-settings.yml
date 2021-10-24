@@ -1,26 +1,26 @@
-name: Deploy To Dev
+name: Update all devs
 
 on:
-  workflow_dispatch:
-    inputs:
-      dev:
-        required: true
-        description: "Choose dev: optimus|starscream|thunderwing|mirage|bumblebee|grimlock"
-        default: optimus
-
-concurrency: build-${{ github.event.inputs.dev }}-${{ github.ref }}
-
-env:
-  AVAILABLE_DEVS: '["optimus", "starscream", "thunderwing", "mirage", "bumblebee", "grimlock"]'
+  push:
+    branches:
+      - base
 
 jobs:
-  k8s-to-dev:
-    runs-on: [ self-hosted, supervisor-team ]
-    needs: deploy-to-dev
+  change-devs:
+    strategy:
+      matrix:
+        branch: ["test", "test2", "test3" ]
+    runs-on: ubuntu-latest
     steps:
-      - name: Invoke workflow with inputs
+      - name: "Change settings in dev: ${{ matrix.branch }}"
         uses: benc-uk/workflow-dispatch@v1
         with:
-          workflow: Kubernetes Deploy
+          workflow: Multi branch commit
           token: ${{ secrets.APP_GITHUB_TOKEN }}
-          inputs: '{"tag_sha": "${{ needs.deploy-to-dev.outputs.sha }}","environment":"${{ github.event.inputs.dev }}"}'
+          inputs: '{
+            "dev": "${{ matrix.branch }}",
+            "replace-regex": "base-replaceable",
+            "first-commit": "${{ github.event.before }}",
+            "last-commit": "${{ github.event.after }}",
+            "cherry-pick-options": "--strategy-option theirs",
+          }'
