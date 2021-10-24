@@ -1,7 +1,7 @@
-cont test32
-cost test332
-tag=mase
-ctes:test3
+cont master2
+cost master32
+tag=mase4
+ctes:master
 1
 2
 3
