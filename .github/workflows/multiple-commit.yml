@@ -26,7 +26,6 @@ jobs:
           then
               echo "Auto cherry-pick failed."
               git log --merge
-              git diff
           fi
       - name: Find and replace base branch
         uses: mingjun97/file-regex-replace@v1
