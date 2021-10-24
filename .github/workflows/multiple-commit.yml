@@ -43,8 +43,7 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: ${{ matrix.dev }}
-          commit_message: Dev update
-          commit_user_name: romanprybudko@gmail.com
+          commit_message: Alteration
+          commit_user_name: prybudko
           commit_user_email: romanprybudko@gmail.com
-          commit_author: romanprybudko@gmail.com <romanprybudko@gmail.com>
           commit_options: "--no-verify --signoff"
