@@ -12,13 +12,11 @@ on:
         description: "The expression that will be found and replaced with the name dev"
         default: base-replaceable
       first-commit:
-        required: false
+        required: true
         description: "Not included"
-        default: ${{ github.event.before }}
       last-commit:
-        required: false
+        required: true
         description: "Included"
-        default: ${{ github.event.after }}
       cherry-pick-options:
         required: false
         description: "e.g., strategy"
