@@ -26,9 +26,8 @@ jobs:
           then
               echo "Auto cherry-pick failed."
               git status
+              git cherry-pick --abort
               exit 1
-          else
-              echo "Auto cherry-pick successful."
           fi
       - name: Find and replace base branch
         uses: mingjun97/file-regex-replace@v1
