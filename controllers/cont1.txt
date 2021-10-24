@@ -1,6 +1,6 @@
 cont master2
 cost master32
-tag=mase
+tag=mase4
 ctes:master
 1
 2
