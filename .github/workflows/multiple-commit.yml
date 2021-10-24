@@ -34,7 +34,6 @@ jobs:
           regex: '(base-replaceable)'
           replacement: '${{ matrix.branch }}'
           flags: "g"
-          exclude: ".github/workflows/multiple-commit.yml"
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: ${{ matrix.branch }}
