@@ -26,7 +26,7 @@ jobs:
       - name: Cherry pick input commits
         shell: bash
         run: |
-          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} -n
+          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} -n -X theirs
           then
               echo "Auto cherry-pick failed."
               git status
