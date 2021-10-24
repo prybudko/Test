@@ -1,41 +1,65 @@
 name: Multi branch commit
 
 on:
-  push:
-    branches:
-      - test2 test2
+  workflow_dispatch:
+    inputs:
+      dev:
+        required: true
+        description: "Dev: optimus|starscream|thunderwing|mirage|bumblebee|grimlock"
+        default: optimus
+      replace-regex:
+        required: true
+        description: "The expression that will be found and replaced with the name dev"
+        default: base-replaceable
+      first-commit:
+        required: false
+        description: "Not included"
+        default: ${{ github.event.before }}
+      last-commit:
+        required: false
+        description: "Included"
+        default: ${{ github.event.after }}
+      cherry-pick-options:
+        required: false
+        description: "e.g., strategy"
+
+env:
+  AVAILABLE_DEVS: '["optimus", "starscream", "thunderwing", "mirage", "bumblebee", "grimlock"]'
 
 jobs:
-  deploy:
-    strategy:
-      matrix:
-        branch: ["test", "test2", "test3"]
+  alteration:
     runs-on: ubuntu-latest
-    name: Change version
+    name: Change dev settings
     steps:
-      - uses: actions/checkout@v2
+      - name: Check input dev name
+        if: "!contains(fromJson(env.AVAILABLE_DEVS), github.event.inputs.dev)"
+        run: echo "Invalid input dev name ${{ github.event.inputs.dev }}" && exit 1
+      - name: Checks-out repository
+        uses: actions/checkout@v2
         with:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
           ref: ${{ matrix.branch }}
           fetch-depth: 0
-      - name: Cherry pick
+      - name: Cherry pick input commits
         shell: bash
         run: |
-          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} -n --strategy-option theirs
+          if ! git cherry-pick ${{ github.event.inputs.first-commit }}..${{ github.event.inputs.last-commit }} ${{ github.event.inputs.cherry-pick-options }}
           then
-              echo "Auto Merge failed."
+              echo "Auto cherry-pick failed."
               git status
+              exit 1
           else
-              echo "Auto Merge successful."
+              echo "Auto cherry-pick successful."
           fi
       - name: Find and replace base branch
         uses: mingjun97/file-regex-replace@v1
         with:
           regex: '(base-replaceable)'
           replacement: '${{ matrix.branch }}'
-          flags: "g"
+          flags: "gm"
           exclude: ".github/workflows/multiple-commit.yml"
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Commit and push dev changes
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: ${{ matrix.branch }}
           commit_message: Dev update
@@ -43,3 +67,7 @@ jobs:
           commit_user_email: romanprybudko@gmail.com
           commit_author: romanprybudko@gmail.com <romanprybudko@gmail.com>
           commit_options: "--no-verify --signoff"
+      - name: Debug
+        shell: bash
+        run: |
+          echo "$GITHUB_CONTEXT"
