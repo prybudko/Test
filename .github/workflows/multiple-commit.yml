@@ -9,7 +9,7 @@ jobs:
   deploy:
     strategy:
       matrix:
-        branch: ["test", "test2"]
+        branch: ["test", "test2", "test3"]
     runs-on: ubuntu-latest
     name: Change version
     steps:
@@ -18,20 +18,33 @@ jobs:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
           ref: ${{ matrix.branch }}
           fetch-depth: 0
-      - uses: pr-mpt/actions-merge-branch@v2
-        with:
-          from: "origin/test2"
-          push: false
-          commit: false
-      - name: Find and replace version tag
+      - name: Set commit author information
+        shell: bash
+        run: |
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Cherry pick
+        shell: bash
+        run: |
+          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} --strategy-option theirs
+          then
+              echo "Auto Merge failed."
+              git status
+          else
+              echo "Auto Merge successful."
+          fi
+      - name: Find and replace base branch
         uses: mingjun97/file-regex-replace@v1
         with:
-          regex: '(test2)'
+          regex: '(base-replaceable)'
           replacement: '${{ matrix.branch }}'
           flags: "g"
-          exclude: '(tag=)\s([a-z]{4})'
+          exclude: ".github/workflows/multiple-commit.yml"
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: ${{ matrix.branch }}
-          commit_message: bump version
+          commit_message: Dev update
+          commit_user_name: romanprybudko@gmail.com
+          commit_user_email: romanprybudko@gmail.com
+          commit_author: romanprybudko@gmail.com <romanprybudko@gmail.com>
           commit_options: "--no-verify --signoff"
