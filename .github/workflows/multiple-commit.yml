@@ -1,27 +1,28 @@
-name: Multi branch commit
+name: Change devs settings
 
 on:
   push:
     branches:
-      - test2 test2
+      - base
 
 jobs:
-  deploy:
+  alteration:
     strategy:
       matrix:
-        branch: ["test", "test2", "test3"]
+        dev: [ "test", "test2", "test3" ]
     runs-on: ubuntu-latest
     name: Change version
     steps:
-      - uses: actions/checkout@v2
+      - name: Checks-out repository
+        uses: actions/checkout@v2
         with:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
-          ref: ${{ matrix.branch }}
+          ref: ${{ matrix.dev }}
           fetch-depth: 0
       - name: Cherry pick
         shell: bash
         run: |
-          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} -n --strategy-option theirs
+          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} -n -X theirs
           then
               echo "Auto Merge failed."
               git status
@@ -32,14 +33,18 @@ jobs:
         uses: mingjun97/file-regex-replace@v1
         with:
           regex: '(base-replaceable)'
-          replacement: '${{ matrix.branch }}'
-          flags: "g"
+          replacement: '${{ matrix.devs }}'
+          flags: "gm"
           exclude: ".github/workflows/multiple-commit.yml"
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          branch: ${{ matrix.branch }}
+          branch: ${{ matrix.dev }}
           commit_message: Dev update
           commit_user_name: romanprybudko@gmail.com
           commit_user_email: romanprybudko@gmail.com
           commit_author: romanprybudko@gmail.com <romanprybudko@gmail.com>
           commit_options: "--no-verify --signoff"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
