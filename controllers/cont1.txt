@@ -1,3 +1,11 @@
-cont test2
-cost test32
-tag=test
+cont master2
+cost master32
+tag=mase
+ctes:master
+1
+2
+3
+4
+5
+6
+branch=base-replaceable-tes
