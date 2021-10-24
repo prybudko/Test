@@ -31,7 +31,7 @@ jobs:
       - name: Find and replace base branch
         uses: mingjun97/file-regex-replace@v1
         with:
-          regex: '(base-replaceabl)'
+          regex: '(base-replaceable)'
           replacement: '${{ matrix.branch }}'
           flags: "g"
           exclude: ".github/workflows/multiple-commit.yml"
