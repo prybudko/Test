@@ -17,7 +17,7 @@ jobs:
       - name: "Check dev"
         if: "!contains(fromJson(env.AVAILABLE_DEVS), github.event.inputs.dev)"
         run: echo "Invalid dev name ${{ github.event.inputs.dev }}" && exit 1
-      # Runs a single command using the runners shell
+      # Runs a single command using the runners shell4
       - name: Run a one-line script
         run: echo Hello, world!
       # Runs a single command using the runners shell
