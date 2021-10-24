@@ -19,6 +19,10 @@ jobs:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
           ref: ${{ matrix.dev }}
           fetch-depth: 0
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - name: Cherry pick input commits
         shell: bash
         run: |
@@ -46,7 +50,3 @@ jobs:
           commit_user_email: romanprybudko@gmail.com
           commit_author: romanprybudko@gmail.com <romanprybudko@gmail.com>
           commit_options: "--no-verify --signoff"
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
