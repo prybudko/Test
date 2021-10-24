@@ -22,5 +22,5 @@ jobs:
             "replace-regex": "base-replaceable",
             "first-commit": "${{ github.event.before }}",
             "last-commit": "${{ github.event.after }}",
-            "cherry-pick-options": "--strategy-option theirs",
+            "cherry-pick-options": "--strategy-option theirs"
           }'
