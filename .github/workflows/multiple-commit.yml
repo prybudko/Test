@@ -22,7 +22,7 @@ jobs:
       - name: Cherry pick input commits
         shell: bash
         run: |
-          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} -n -X theirs
+          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} -n
           then
               echo "Auto cherry-pick failed."
               git mergetool
