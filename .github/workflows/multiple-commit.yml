@@ -26,7 +26,7 @@ jobs:
       - name: Cherry pick
         shell: bash
         run: |
-          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} --strategy-option theirs
+          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} -n --strategy-option theirs
           then
               echo "Auto Merge failed."
               git status
