@@ -28,10 +28,8 @@ jobs:
         run: |
           if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} -n
           then
-              echo "Auto Merge failed."
-              git status
-          else
-              echo "Auto Merge successful."
+              echo "Auto cherry-pick failed."
+              git mergetool
           fi
       - name: Find and replace base branch
         uses: mingjun97/file-regex-replace@v1
