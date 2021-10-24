@@ -1,47 +1,28 @@
-name: Multi branch commit
+name: Change devs settings
 
 on:
-  workflow_dispatch:
-    inputs:
-      dev:
-        required: true
-        description: "Dev: test|test2|test3"
-        default: optimus
-      replace-regex:
-        required: true
-        description: "The expression that will be found and replaced with the name dev"
-        default: base-replaceable
-      first-commit:
-        required: true
-        description: "Not included"
-      last-commit:
-        required: true
-        description: "Included"
-      cherry-pick-options:
-        required: false
-        description: "e.g., strategy"
-
-env:
-  AVAILABLE_DEVS: '["test", "test2", "test3"]'
+  push:
+    branches:
+      - base
 
 jobs:
   alteration:
+    strategy:
+      matrix:
+        dev: [ "test", "test2", "test3" ]
     runs-on: ubuntu-latest
     name: Change dev settings
     steps:
-      - name: Check input dev name
-        if: "!contains(fromJson(env.AVAILABLE_DEVS), github.event.inputs.dev)"
-        run: echo "Invalid input dev name ${{ github.event.inputs.dev }}" && exit 1
       - name: Checks-out repository
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
-          ref: ${{ github.event.inputs.dev }}
+          ref: ${{ matrix.dev }}
           fetch-depth: 0
       - name: Cherry pick input commits
         shell: bash
         run: |
-          if !git cherry-pick ${{ github.event.inputs.first-commit }}..${{ github.event.inputs.last-commit }} -n ${{ github.event.inputs.cherry-pick-options }}
+          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} -n -X theirs
           then
               echo "Auto cherry-pick failed."
               git status
@@ -52,20 +33,20 @@ jobs:
       - name: Find and replace base branch
         uses: mingjun97/file-regex-replace@v1
         with:
-          regex: '(${{ github.event.inputs.replace-regex }})'
-          replacement: '${{ github.event.inputs.dev }}'
+          regex: '(base-replaceable)'
+          replacement: '${{ matrix.devs }}'
           flags: "gm"
           exclude: ".github/workflows/multiple-commit.yml"
       - name: Commit and push dev changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          branch: ${{ github.event.inputs.dev }}
+          branch: ${{ matrix.dev }}
           commit_message: Dev update
           commit_user_name: romanprybudko@gmail.com
           commit_user_email: romanprybudko@gmail.com
           commit_author: romanprybudko@gmail.com <romanprybudko@gmail.com>
           commit_options: "--no-verify --signoff"
-      - name: Debug
-        shell: bash
-        run: |
-          echo "$GITHUB_CONTEXT"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
