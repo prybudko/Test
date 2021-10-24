@@ -26,12 +26,12 @@ jobs:
       - name: Cherry pick input commits
         shell: bash
         run: |
-          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} -n
+          if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} -n -X theirs
           then
               echo "Auto Merge failed."
               git status
-          else
-              echo "Auto Merge successful."
+              git cherry-pick --abort
+              exit 1
           fi
       - name: Find and replace base branch
         uses: mingjun97/file-regex-replace@v1
