@@ -19,10 +19,6 @@ jobs:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
           ref: ${{ matrix.dev }}
           fetch-depth: 0
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
       - name: Cherry pick input commits
         shell: bash
         run: |
@@ -45,8 +41,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           branch: ${{ matrix.dev }}
-          commit_message: Dev update
-          commit_user_name: romanprybudko@gmail.com
-          commit_user_email: romanprybudko@gmail.com
-          commit_author: romanprybudko@gmail.com <romanprybudko@gmail.com>
+          commit_message: Alteration
+          commit_user_name: ${{ github.event.commits.author.name }}
+          commit_user_email: ${{ github.event.commits.author.email }}
           commit_options: "--no-verify --signoff"
