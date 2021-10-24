@@ -19,7 +19,11 @@ jobs:
           token: ${{ secrets.APP_GITHUB_TOKEN }}
           ref: ${{ matrix.dev }}
           fetch-depth: 0
-      - name: Cherry pick
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Cherry pick input commits
         shell: bash
         run: |
           if ! git cherry-pick ${{ github.event.before }}..${{ github.event.after }} -n -X theirs
@@ -44,7 +48,3 @@ jobs:
           commit_user_email: romanprybudko@gmail.com
           commit_author: romanprybudko@gmail.com <romanprybudko@gmail.com>
           commit_options: "--no-verify --signoff"
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
