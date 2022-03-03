@@ -1,2 +1,2 @@
 #!/bin/bash
-git reset --soft HEAD~2 && git cz
+git reset --soft HEAD~1 && git cz
