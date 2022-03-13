@@ -1,0 +1,11 @@
+cont master2
+cost master32
+tag=mase4
+ctes:master
+1
+2
+3
+4
+5
+6
+branch=bbase-replaceable-tes
