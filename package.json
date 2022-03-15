@@ -1,14 +1,16 @@
 {
   "devDependencies": {
-    "@prettier/plugin-php": "^0.18.3",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.3.5",
-    "prettier": "^2.5.1"
+    "@digitalroute/cz-conventional-changelog-for-jira": "7.2.1",
+    "commitizen": "4.2.4"
   },
-  "lint-staged": {
-    "*.php": "prettier --write"
-  },
-  "scripts": {
-    "prepare": "husky install"
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/@digitalroute/cz-conventional-changelog-for-jira",
+      "jiraOptional": true,
+      "exclamationMark": true,
+      "jiraPrefix": "TASK",
+      "jiraAppend": ",",
+      "skipScope": false
+    }
   }
 }
