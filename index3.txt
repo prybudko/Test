@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 test3awdawddawsefsef
 Squashing local commits before pull request (optional) using commitizen
+=======
+test3
+>>>>>>> 5a8950a600cbc2a9214ce80cda5b9954227fa848
