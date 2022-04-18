@@ -2,8 +2,8 @@
 
 class Test
 {
-    public function test(){
-        echo 343333;
-
+    public function test()
+    {
+        echo 34333332;
     }
 }
