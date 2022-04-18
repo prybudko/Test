@@ -1,11 +1,7 @@
 {
   "devDependencies": {
     "@digitalroute/cz-conventional-changelog-for-jira": "7.2.1",
-    "@prettier/plugin-php": "0.18.3",
-    "commitizen": "4.2.4",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.3.5",
-    "prettier": "2.5.1"
+    "commitizen": "4.2.4"
   },
   "config": {
     "commitizen": {
@@ -16,15 +12,5 @@
       "jiraAppend": ",",
       "skipScope": false
     }
-  },
-  "lint-staged": {
-    "*.php": "prettier --write"
-  },
-  "prettier": {
-    "phpVersion": "7.4",
-    "singleQuote": true
-  },
-  "scripts": {
-    "prepare": "husky install"
   }
 }
