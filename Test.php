@@ -23,4 +23,8 @@ class Test
             ->where("id", $id)
             ->first(); // now will workwesf
     }
+
+    public function testtest(){
+        echo 4;
+    }
 }
