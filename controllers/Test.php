@@ -3,7 +3,7 @@
 class Test
 {
     public function test(){
-        echo 343333;
-
+        echo 3443333;
+echo 2;
     }
 }
