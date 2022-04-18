@@ -4,8 +4,8 @@ class Test
 {
     public function test()
     {
-        echo 34333332;
-        echo 33443333;
+        echo 3433343332;
+        echo 3344333322323;
         echo 2;
     }
 }
